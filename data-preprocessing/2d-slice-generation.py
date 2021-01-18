@@ -5,6 +5,16 @@ import numpy as np
 import torch
 
 
+def min_max_normalization(data, eps):
+    mn = data.min()
+    mx = data.max()
+    data_normalized = data - mn
+    old_range = mx - mn + eps
+    data_normalized /= old_range
+
+    return data_normalized
+
+
 # =============================================================================
 # Slicing (Dict: ct, mask) je 2d Bild:
 # =============================================================================
@@ -21,8 +31,10 @@ def save(mask, z, image):
     img_new = img_new.get_fdata()
     img_new = img_new.transpose(2, 0, 1)
 
+    img_new = img_new.astype(np.float32)
+    img_new = min_max_normalization(img_new, 0.001)
     # Save
-    print(img_new.shape[0])
+
     for i in range(img_new.shape[0]):
         # check if mask is empty.
 
@@ -50,7 +62,7 @@ def main():
         if (i % 2) != 0:  # i%2 != 0 -> immer mask (aber das ct Bild von davor ist in hold gespeichert)
             save(fileA, z, hold)  # fileA = mask, hold = ct
             z = z + 1
-            print(fileA, hold)
+            print(fileA.split(".")[0].split("/")[-1])
         i = i + 1
 
 
