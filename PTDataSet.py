@@ -63,7 +63,8 @@ class TorchDataset(Dataset):
                 image = self.augment_gaussian_noise(image)
             image = torch.from_numpy(image)
 
-        # image = image.float()
+        image = image.unsqueeze(0)
+        image = image.float()
         mask = mask.to(dtype=torch.int64)
 
         return image, mask
