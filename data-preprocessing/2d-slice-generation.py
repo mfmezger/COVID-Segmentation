@@ -20,7 +20,7 @@ def min_max_normalization(data, eps):
 # =============================================================================
 # ein Dict für jede Schicht von jeden Bild ()
 def save(mask, z, image):
-    save_folder = "/home/mfmezger/data/COVID/"
+    save_folder = "/home/wolfda/COVID-19-20_v2/Train_tensor_slices_filter"
 
     # Nifti -> Numpy
     mask_new = nib.load(mask)
@@ -55,7 +55,7 @@ def main():
     i = 2
     z = 0
     Ordner = sorted(glob.glob(
-        "/home/mfmezger/Downloads/COVID-19-20_v2/Train/volume-covid19-A-*.nii.gz"))  # Ordner: Alle Pfade aus dem Ordner Train sortiert (die Pfade unterscheiden sich nur durch *)
+        "/home/wolfda/COVID-19-20_v2/Train/volume-covid19-A-*.nii.gz"))  # Ordner: Alle Pfade aus dem Ordner Train sortiert (die Pfade unterscheiden sich nur durch *)
     for fileA in Ordner:  # durchläuft alle Pfade im Ordner Train
         if (i % 2) == 0:  # ct und mask kommen immer abwchselnd: bei i%2 == 0 -> immer das ct Bild
             hold = fileA  # hold = ct Bild
