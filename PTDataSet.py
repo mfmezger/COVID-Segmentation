@@ -14,7 +14,7 @@ class TorchDataset(Dataset):
     Loading the Datasets
     """
 
-    def sorted_nicely(self, l):
+    def sorted_nicely(self, l): # 5)
         """ Sort the given iterable in the way that humans expect."""
         convert = lambda text: int(text) if text.isdigit() else text
         alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
@@ -22,11 +22,11 @@ class TorchDataset(Dataset):
 
 
 
-    def __init__(self, directory, augmentations=False):
+    def __init__(self, directory, augmentations=False): # 3) 
         self.directory = directory
         self.augmentations = augmentations
 
-        self.images = self.sorted_nicely(os.listdir(directory))
+        self.images = self.sorted_nicely(os.listdir(directory)) # 4) 
 
 
 
@@ -71,7 +71,7 @@ class TorchDataset(Dataset):
 
 
 if __name__ == '__main__':
-    dataset = TorchDataset("/home/mfmezger/data/COVID/", augmentations=True)
+    dataset = TorchDataset("/home/wolfda/COVID-19-20_v2/Train_tensor_slices_filter", augmentations=True)
     img, mask = dataset[1]
 
     from batchviewer import view_batch
