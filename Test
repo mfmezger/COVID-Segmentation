@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 13 10:52:01 2021
+
+@author: wolfda
+"""
+
+import torch
+
+from batchviewer import view_batch # aus Git runtergeladen
+
+"""
+Bild = torch.load("/home/wolfda/COVID-19-20_v2/Train_tensor_slices_filter/0_75.pt")
+ct = Bild["vol"]
+mask = Bild["mask"]
+name = Bild["name"]
+
+print(ct.shape, mask.shape, name)
+view_batch(ct, mask, width=1000, height=1000)
+"""
+
+
+Bild = torch.load("/home/wolfda/COVID-19-20_v2/Output/0.pt")
+ct = Bild["Input"] #[2, 1, 512, 512] bs,?,bildgröße
+target = Bild["Target"] #[2, 512, 512] bs,bildgröße
+output = Bild["Output"] #[2, 2, 512, 512] bs,?,bildgröße
+
+ct_1=ct[0,0,...] 
+ct_2=ct[1,0,...]
+
+target_1=target[0,...]
+target_2=target[1,...]
+
+output_1=output[0,0,...]
+output_2=output[0,1,...]
+output_3=output[1,0,...]
+output_4=output[1,1,...]
+
+print(ct.shape, target.shape, output.shape)
+view_batch(ct_1, target_1, width=1000, height=1000)
+view_batch(output_1, output_2, width=1000, height=1000)
+
+
+
+       
+
+

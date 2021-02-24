@@ -17,7 +17,7 @@ from Unet import UNet
 
 class CustomNetwork(pl.LightningModule):
 
-    def __init__(self, batch_size: int = 8, learning_rate: float = 0.01, num_classes: int = 10, training: bool = True, num_workers: int = 8, **kwargs):
+    def __init__(self, batch_size: int = 8, learning_rate: float = 0.01, num_classes: int = 1, training: bool = True, num_workers: int = 8, **kwargs):
         
         # 7)
         super().__init__()
@@ -95,10 +95,13 @@ class CustomNetwork(pl.LightningModule):
     
 # ----- Test ------------------------------------------------------------
     def test_step(self, batch, batch_idx):
-        x, y = batch
+        x, y = batch # x: [2, 1, 512, 512] bs,?,bildgröße y: #[2, 512, 512] bs,bildgröße
         
         # Feed Forward 
-        logits = self(x)
+        logits = self(x) #[2,2,512,512] bs, Anzahl_Bilder, Bild_größe
+        #print(logits.shape)
+        path = "/home/wolfda/COVID-19-20_v2/Output/" +str(batch_idx)+ ".pt"
+        torch.save({"Input": x, "Target": y, "Output": logits}, path)
         
         # Loss
         loss = F.cross_entropy(logits, y)
