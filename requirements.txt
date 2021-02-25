@@ -1,0 +1,2 @@
+pytorch_lightning
+git+git://github.com/FabianIsensee/BatchViewer

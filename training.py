@@ -1,10 +1,10 @@
 from argparse import ArgumentParser
 
-from PIL import Image
-from network import CustomNetwork
-from pytorch_lightning import Trainer, loggers, seed_everything
+from pytorch_lightning import Trainer, seed_everything
 from pytorch_lightning.callbacks import ModelCheckpoint
+
 from PTDataSet import TorchDataset
+from network import CustomNetwork
 
 
 def main(hparams):
@@ -47,7 +47,7 @@ if __name__ == '__main__':
     parser.add_argument('--opt', default="ranger", type=str)
     parser.add_argument('--loss', default="ce")
     parser.add_argument('--augmentations', default=False, type=bool)
-    parser.add_argument('--max_epochs', default=20, type=int)
+    parser.add_argument('--max_epochs', default=1, type=int)
     parser.add_argument('--train_path',
                         default="/home/mfmezger/data/COVID/")
     parser.add_argument('--val_path',

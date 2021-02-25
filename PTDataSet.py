@@ -7,8 +7,6 @@ import torch
 from torch.utils.data import Dataset
 
 
-
-
 class TorchDataset(Dataset):
     """
     Loading the Datasets
@@ -20,17 +18,14 @@ class TorchDataset(Dataset):
         alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
         return sorted(l, key=alphanum_key)
 
-
-
     def __init__(self, directory, augmentations=False):
         self.directory = directory
         self.augmentations = augmentations
 
         self.images = self.sorted_nicely(os.listdir(directory))
 
-
-
-    def augment_gaussian_noise(self, data_sample, noise_variance=(0.001, 0.05)):
+    @staticmethod
+    def augment_gaussian_noise(data_sample, noise_variance=(0.001, 0.05)):
         # https://github.com/MIC-DKFZ/batchgenerators
         if noise_variance[0] == noise_variance[1]:
             variance = noise_variance[0]
